@@ -10,8 +10,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import { GiConsoleController } from "react-icons/gi";
+import FormRow from "../../ui/FormRow";
+import { useState } from "react";
 
-const FormRow = styled.div`
+const FormRow2 = styled.div`
   display: grid;
   align-items: center;
   grid-template-columns: 24rem 1fr 1.2fr;
@@ -48,47 +50,48 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm() {
+  const [isCreating, setIsCreating] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
   const { errors } = formState;
-  console.log(errors);
   const queryClient = useQueryClient();
 
   const { mutate, isLoading: isDeleting } = useMutation({
     mutationFn: createCabin,
     onSuccess: (data) => {
+      setIsCreating(false);
       toast.success("Cabin created successfully");
       queryClient.invalidateQueries(["cabins"]);
     },
     onError: (error) => {
+      setIsCreating(false);
       toast.error(error.message);
     },
   });
 
   function onSubmit(data) {
+    setIsCreating(true);
     mutate(data);
   }
 
   function onError(errors) {
-    console.log(errors);
+    //console.log(errors);
   }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      <FormRow>
-        <Label htmlFor="name">Cabin name</Label>
+      <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           type="text"
           id="name"
+          disabled={isCreating}
           {...register("name", {
             required: "This field is required",
           })}
         />
-        {errors?.name?.message && <Error>{errors.name.message}</Error>}
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
+      <FormRow label="Maximum capacity" error={errors?.maxCapacity?.message}>
         <Input
           type="number"
           id="maxCapacity"
@@ -102,8 +105,7 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="regularPrice">Regular price</Label>
+      <FormRow label="Regular price" error={errors?.regularPrice?.message}>
         <Input
           type="number"
           id="regularPrice"
@@ -111,8 +113,7 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="discount">Discount</Label>
+      <FormRow label="Discount" error={errors?.discount?.message}>
         <Input
           type="number"
           id="discount"
@@ -126,8 +127,10 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="description">Description for website</Label>
+      <FormRow
+        label="Description for website"
+        error={errors?.description?.message}
+      >
         <Textarea
           type="number"
           id="description"
@@ -136,8 +139,7 @@ function CreateCabinForm() {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="image">Cabin photo</Label>
+      <FormRow label="Cabin photo" error={errors?.image?.message}>
         <FileInput id="image" accept="image/*" />
       </FormRow>
 
