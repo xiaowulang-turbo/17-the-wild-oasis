@@ -1,4 +1,11 @@
 import { styled } from "styled-components";
+import PropTypes from "prop-types";
+
+FormRow.propTypes = {
+  label: PropTypes.string,
+  error: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -37,9 +44,10 @@ const Error = styled.span`
 `;
 
 export default function FormRow({ label, error, children }) {
+  console.log(label, error, children);
   return (
     <StyledFormRow>
-      {label && <Label htmlFor="children.props.id"></Label>}
+      {label && <Label htmlFor={children.props.id}>{label}</Label>}
       {children}
       {error && <Error>{error}</Error>}
     </StyledFormRow>
