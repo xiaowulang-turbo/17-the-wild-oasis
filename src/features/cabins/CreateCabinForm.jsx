@@ -9,9 +9,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
-import { GiConsoleController } from "react-icons/gi";
 import FormRow from "../../ui/FormRow";
-import { useState } from "react";
 
 const FormRow2 = styled.div`
   display: grid;
@@ -67,7 +65,7 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -119,9 +117,10 @@ function CreateCabinForm() {
           defaultValue={0}
           {...register("discount", {
             required: "This field is required",
-            validate: (value) =>
+            validate: (value) => {
               value <= getValues().regularPrice ||
-              "Discount should be less than regular price",
+                "Discount should be less than regular price";
+            },
           })}
         />
       </FormRow>
