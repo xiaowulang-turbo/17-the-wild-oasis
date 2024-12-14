@@ -38,7 +38,7 @@ function CabinTable() {
     queryKey: ["cabins"],
     queryFn: getCabins,
     onSuccess: (data) => {
-      console.log(data);
+      //console.log(data);
     },
   });
   console.log(isLoading);
