@@ -28,3 +28,5 @@ react-query date-fns@2.30.0 react-hook-form@7
   （select 单个），没有 select 语句的话默认返回为空
 - mutationFn(react query)只能接受一个参数，可以通过对象的形式传递多个参数
 - 多使用可选链操作符，减少出错，比如：`data?.name`，`data?.age`
+- useForm 中的默认值不会及时更新，需要在 reset 方法中传入默认值，例如
+  `reset({ data: editValues });`
