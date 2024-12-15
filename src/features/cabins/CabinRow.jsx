@@ -70,7 +70,7 @@ export default function CabinRow({ cabin }) {
         {discount ? (
           <Discount>{formatCurrency(discount)}</Discount>
         ) : (
-          <span>-</span>
+          <span>&mdash;</span>
         )}
         <div>
           <button onClick={() => setShowForm((prev) => !prev)}>
