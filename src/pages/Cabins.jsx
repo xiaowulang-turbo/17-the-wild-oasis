@@ -13,16 +13,14 @@ function Cabins() {
     <>
       <Row type="horizontal">
         <Heading as="h1">All cabins</Heading>
-        <p>TEST</p>
-        {/* <img
-        src="https://rthtwjiqszchqibtoqhb.supabase.co/storage/v1/object/public/cabin-images/cabin-005.jpg"
-        alt="cabin"
-      /> */}
+        <p>Filter / Sort</p>
       </Row>
 
       <Row>
         <CabinTable />
-        <Button onClick={() => setShowForm(!showForm)}>Add new cabin</Button>
+        <Button onClick={() => setShowForm(!showForm)}>
+          {showForm ? "Hide Form" : "Add new cabin"}
+        </Button>
         {showForm && <CreateCabinForm />}
       </Row>
     </>
