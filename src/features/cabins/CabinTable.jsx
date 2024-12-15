@@ -41,7 +41,7 @@ function CabinTable() {
       //console.log(data);
     },
   });
-  console.log(isLoading);
+  //console.log(isLoading);
   if (isLoading) return <Spinner />;
 
   return (

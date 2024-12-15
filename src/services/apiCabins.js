@@ -16,9 +16,14 @@ export async function getCabins() {
 }
 
 export async function createEditCabin(newCabin, id) {
-  const imageName = `${Math.random()}-${newCabin.image.name}`.replace("/", "");
+  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
+  console.log(newCabin);
 
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imageName = `${Math.random()}-${newCabin.image?.name}`.replace("/", "");
+
+  const imagePath = hasImagePath
+    ? newCabin.image
+    : `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
 
   // https://rthtwjiqszchqibtoqhb.supabase.co/storage/v1/object/public/cabin-images/cabin-001.jpg
 
@@ -27,12 +32,12 @@ export async function createEditCabin(newCabin, id) {
 
   // A) Create
   if (!id) {
-    query.insert([{ ...newCabin, image: imagePath }]);
+    query = query.insert([{ ...newCabin, image: imagePath }]);
   }
 
   // B) Edit
   if (id) {
-    query.update({ ...newCabin, image: imagePath }).eq("id", id);
+    query = query.update({ ...newCabin, image: imagePath }).eq("id", id);
   }
 
   const { data, error } = await query.select().single();
@@ -43,15 +48,17 @@ export async function createEditCabin(newCabin, id) {
   }
 
   // 2. Upload image
-  const { error: storageError } = await supabase.storage
-    .from("cabin-images")
-    .upload(`${imageName}`, newCabin.image);
+  if (!hasImagePath) {
+    const { error: storageError } = await supabase.storage
+      .from("cabin-images")
+      .upload(`${imageName}`, newCabin.image);
 
-  // 3. Delete the cabin if there was an error uploading the image
-  if (storageError) {
-    await supabase.from("cabins").delete().eq("id", data[0].id);
-    console.error(storageError);
-    throw new Error("Cabins could not be created");
+    // 3. Delete the cabin if there was an error uploading the image
+    if (storageError) {
+      await supabase.from("cabins").delete().eq("id", data[0].id);
+      console.error(storageError);
+      throw new Error("Cabins could not be created");
+    }
   }
 
   return data;
