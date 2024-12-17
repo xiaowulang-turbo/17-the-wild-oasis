@@ -31,3 +31,4 @@ react-query date-fns@2.30.0 react-hook-form@7
 - useForm 中的默认值不会及时更新，需要在 reset 方法中传入默认值，例如
   `reset({ data: editValues });`
 - react Portal 可以将组件渲染到其他位置，但保留原来的组件结构和状态，值得研究
+- compound component, 即复合组件模式（父子组件、context 上下文），十分有用

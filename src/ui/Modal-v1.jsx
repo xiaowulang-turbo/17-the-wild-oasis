@@ -2,7 +2,6 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import { cloneElement, createContext, useContext, useState } from "react";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -53,43 +52,15 @@ const Button = styled.button`
   }
 `;
 
-// compound component version
-const ModalContext = createContext();
-
-function Modal({ children }) {
-  const [openName, setOpenName] = useState("");
-
-  const close = () => setOpenName("");
-  const open = setOpenName;
-
-  return (
-    <ModalContext.Provider value={{ openName, close, open }}>
-      <div>{children}</div>
-    </ModalContext.Provider>
-  );
-}
-
-function Open({ children, opens: opensWindowName }) {
-  const { open } = useContext(ModalContext);
-
-  return (
-    <>{cloneElement(children, { onClick: () => open(opensWindowName) })}</>
-  );
-}
-
-function Window({ children, name }) {
-  const { openName, close } = useContext(ModalContext);
-
-  if (name !== openName) return null;
-
+function Modal({ children, onClose }) {
   // interesting function
   return createPortal(
     <Overlay>
       <StyledModal>
-        <Button onClick={close}>
+        <Button onClick={onClose}>
           <HiXMark />
         </Button>
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <div>{children}</div>
       </StyledModal>
     </Overlay>,
     document.body
@@ -99,18 +70,5 @@ Modal.propTypes = {
   children: PropTypes.node, // 验证 children
   onClose: PropTypes.func, // 验证 onClose
 };
-
-Open.propTypes = {
-  children: PropTypes.node, // 验证 children
-  opens: PropTypes.string, // 验证 opens
-};
-
-Window.propTypes = {
-  children: PropTypes.node, // 验证 children
-  name: PropTypes.string, // 验证 name
-};
-
-Modal.Open = Open;
-Modal.Window = Window;
 
 export default Modal;
