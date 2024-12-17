@@ -30,3 +30,4 @@ react-query date-fns@2.30.0 react-hook-form@7
 - 多使用可选链操作符，减少出错，比如：`data?.name`，`data?.age`
 - useForm 中的默认值不会及时更新，需要在 reset 方法中传入默认值，例如
   `reset({ data: editValues });`
+- react Protal 可以将组件渲染到其他位置，但保留原来的组件结构和状态，值得研究
