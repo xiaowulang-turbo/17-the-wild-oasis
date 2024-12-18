@@ -22,7 +22,7 @@ react-query date-fns@2.30.0 react-hook-form@7
 
 # learning
 
-- 中文图片发送时报错，尚未解决
+- 中文图片发送时报错，尚未解决（supabase-bug）
 - input 组件默认内容为 string，validate 时需要转换为 number 进行比较
 - supabase 返回的 data 类型不定，有时是 array（全部 select），有时返回单个对象
   （select 单个），没有 select 语句的话默认返回为空
@@ -32,3 +32,6 @@ react-query date-fns@2.30.0 react-hook-form@7
   `reset({ data: editValues });`
 - react Portal 可以将组件渲染到其他位置，但保留原来的组件结构和状态，值得研究
 - compound component, 即复合组件模式（父子组件、context 上下文），十分有用
+- capture phrase. 首次在实战中使用到了捕获阶段。具体场景如下：点击页面空白区域，
+  关闭 modal 弹窗。但再次点击展开 modal 时，由于冒泡事件特性，modal 弹窗会立刻关
+  闭。为了解决这个问题，需要在捕获阶段而非冒泡阶段处理事件。
