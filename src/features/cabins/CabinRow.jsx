@@ -87,15 +87,15 @@ export default function CabinRow({ cabin }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button
-            onClick={handleDuplicate}
-            disabled={isCreating}
-            title="Duplicate"
-          >
-            <HiSquare2Stack />
-          </button>
-
           <Modal>
+            <button
+              onClick={handleDuplicate}
+              disabled={isCreating}
+              title="Duplicate"
+            >
+              <HiSquare2Stack />
+            </button>
+
             <Modal.Open opens="edit">
               <button title="Edit">
                 <HiPencil />
