@@ -2,15 +2,8 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { HiXMark } from "react-icons/hi2";
 import { createPortal } from "react-dom";
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-//import useOutsideClick from "../hooks/useOutsideClick";
+import { cloneElement, createContext, useContext, useState } from "react";
+import useOutsideClick from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -87,27 +80,9 @@ function Open({ children, opens: opensWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
-  const ref = useRef();
 
   // custom hook
-  //useOutsideClick(ref, close);
-
-  // Can not be called conditionally
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        close();
-      }
-    };
-
-    // Capture phrase
-    document.addEventListener("click", handleClickOutside, true);
-
-    // Clean up
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, [close]);
+  const ref = useOutsideClick(close, true);
 
   if (name !== openName) return null;
 
