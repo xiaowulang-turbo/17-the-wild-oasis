@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+import { createContext, useContext } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
@@ -52,9 +54,51 @@ const Footer = styled.footer`
   }
 `;
 
+/*
 const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   margin: 2.4rem;
 `;
+*/
+
+const tableContext = createContext();
+
+function Table({ columns, children }) {
+  return (
+    <tableContext.Provider value={columns}>
+      <StyledTable>{children}</StyledTable>
+    </tableContext.Provider>
+  );
+}
+
+function Header({ children }) {
+  const columns = useContext(tableContext);
+  return (
+    <StyledHeader role="row" columns={columns}>
+      {children}
+    </StyledHeader>
+  );
+}
+
+function Row({ children }) {
+  const columns = useContext(tableContext);
+  return (
+    <StyledRow role="row" columns={columns}>
+      {children}
+    </StyledRow>
+  );
+}
+
+function Body({ children }) {
+  return <StyledBody>{children}</StyledBody>;
+}
+
+Table.Header = Header;
+Table.Row = Row;
+Table.Body = Body;
+// No logic for the footer yet
+Table.Footer = Footer;
+
+export default Table;
