@@ -41,3 +41,7 @@ react-query date-fns@2.30.0 react-hook-form@7
   单会跟随滚动，尚未解决
 - React 自定义组件并不是 html 元素，没有内建的事件处理机制，类似于 onClick 的事
   件应通过 props 传递给内部 html 元素处理
+- 实测<Modal.Window>组件放在<Menus.Menu>内部时，会出现 modal 和 menu 同时开关的
+  情况，初步判定原因是点击 edit 等按钮后，list 组件卸载，内部的 modal.window 自
+  然不能显示
+- 今后应当更加注重上一个问题，多关注嵌套组件的层级关系，避免意外的组件卸载
