@@ -35,3 +35,5 @@ react-query date-fns@2.30.0 react-hook-form@7
 - capture phrase. 首次在实战中使用到了捕获阶段。具体场景如下：点击页面空白区域，
   关闭 modal 弹窗。但再次点击展开 modal 时，由于冒泡事件特性，modal 弹窗会立刻关
   闭。为了解决这个问题，需要在捕获阶段而非冒泡阶段处理事件。
+- html 或者 react 组件标签上，传入任意的 props 都可以，并不会发生错误，但还是要
+  避免传入无意义的 props
