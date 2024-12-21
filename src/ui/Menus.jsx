@@ -115,8 +115,19 @@ function List({ id, children }) {
   );
 }
 
-function Button({ children }) {
-  return <StyledButton>{children}</StyledButton>;
+function Button({ children, icon, onClick }) {
+  const { close } = useContext(MenusContext);
+  const handleClick = () => {
+    onClick();
+    close();
+  };
+
+  return (
+    <StyledButton onClick={handleClick}>
+      {icon}
+      <span>{children}</span>
+    </StyledButton>
+  );
 }
 
 Menus.Menu = Menu;

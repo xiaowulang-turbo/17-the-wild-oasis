@@ -39,3 +39,5 @@ react-query date-fns@2.30.0 react-hook-form@7
   避免传入无意义的 props
 - 在做复用上下文菜单时（reusable context menu），遗留一个小 bug，页面滚动时，菜
   单会跟随滚动，尚未解决
+- React 自定义组件并不是 html 元素，没有内建的事件处理机制，类似于 onClick 的事
+  件应通过 props 传递给内部 html 元素处理
