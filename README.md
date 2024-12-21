@@ -37,3 +37,5 @@ react-query date-fns@2.30.0 react-hook-form@7
   闭。为了解决这个问题，需要在捕获阶段而非冒泡阶段处理事件。
 - html 或者 react 组件标签上，传入任意的 props 都可以，并不会发生错误，但还是要
   避免传入无意义的 props
+- 在做复用上下文菜单时（reusable context menu），遗留一个小 bug，页面滚动时，菜
+  单会跟随滚动，尚未解决
