@@ -7,7 +7,7 @@ function Bookings() {
     <>
       <Row type="horizontal">
         <Heading as="h1">All bookings</Heading>
-        <p>TEST</p>
+        <p>Filter / Sort</p>
       </Row>
 
       <BookingTable />
