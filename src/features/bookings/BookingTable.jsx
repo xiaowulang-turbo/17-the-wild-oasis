@@ -1,9 +1,13 @@
 import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
+import useBookings from "./useBookings";
+import Empty from "../../ui/Empty";
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings } = useBookings();
+
+  if (!bookings) return <Empty resource={"bookings"} />;
 
   return (
     <Menus>
