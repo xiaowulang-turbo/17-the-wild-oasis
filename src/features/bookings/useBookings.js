@@ -23,16 +23,20 @@ export default function useBookings() {
     direction,
   };
 
+  // 3. Pagination
+  const page = Number(searchParams.get("page")) || 1;
+
   const {
     isLoading,
-    data: bookings,
+    // data might be undefined in the first render
+    data: { data: bookings, count } = {},
     error,
   } = useQuery({
     // kind of dependencies, when it changes, the query is refetched
-    queryKey: ["bookings", filter, sortBy],
+    queryKey: ["bookings", filter, sortBy, page],
     // receives a function that returns the data
-    queryFn: () => getBookings({ filter, sortBy }),
+    queryFn: () => getBookings({ filter, sortBy, page }),
   });
 
-  return { isLoading, bookings, error };
+  return { isLoading, bookings, count, error };
 }
