@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import {
@@ -115,8 +116,14 @@ function BookingDataBox({ booking }) {
     hasBreakfast,
     observations,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
-    cabins: { name: cabinName },
+    guests: {
+      fullName: guestName,
+      email,
+      country,
+      countryFlag,
+      nationalID,
+    } = {},
+    cabins: { name: cabinName } = {},
   } = booking;
 
   return (
@@ -128,14 +135,15 @@ function BookingDataBox({ booking }) {
             {numNights} nights in Cabin <span>{cabinName}</span>
           </p>
         </div>
-
-        <p>
-          {format(new Date(startDate), "EEE, MMM dd yyyy")} (
-          {isToday(new Date(startDate))
-            ? "Today"
-            : formatDistanceFromNow(startDate)}
-          ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
-        </p>
+        {startDate && endDate && (
+          <p>
+            {format(new Date(startDate), "EEE, MMM dd yyyy")} (
+            {isToday(new Date(startDate))
+              ? "Today"
+              : formatDistanceFromNow(startDate)}
+            ) &mdash; {format(new Date(endDate), "EEE, MMM dd yyyy")}
+          </p>
+        )}
       </Header>
 
       <Section>
@@ -178,7 +186,9 @@ function BookingDataBox({ booking }) {
       </Section>
 
       <Footer>
-        <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
+        {created_at && (
+          <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
+        )}
       </Footer>
     </StyledBookingDataBox>
   );
