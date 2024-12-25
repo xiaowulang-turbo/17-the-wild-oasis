@@ -51,6 +51,8 @@ export default function Filter({ filterField, options }) {
   const currentFilter = searchParams.get(filterField) || options?.at(0)?.value;
 
   const handleClick = (discount) => {
+    // Fix a bug that the data results might not be enough to get while the page number greater than 1
+    if (searchParams.get("page")) searchParams.set("page", 1);
     searchParams.set(filterField, discount);
     setSearchParams(searchParams);
   };
