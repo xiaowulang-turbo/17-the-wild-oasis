@@ -55,9 +55,7 @@ function BookingDetail() {
 
       <ButtonGroup>
         {status === "unconfirmed" && (
-          <Button onClick={handleCheckin}>
-            Check in booking #{bookingId}{" "}
-          </Button>
+          <Button onClick={handleCheckin}>Check in</Button>
         )}
         <Button variation="secondary" onClick={moveBack}>
           Back

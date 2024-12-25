@@ -11,7 +11,8 @@ export function useBooking() {
     data: booking,
     error,
   } = useQuery({
-    queryKey: ["bookings"],
+    // It's very important to add the bookingId to the query key, or else the query will not be refreshed when the bookingId changes
+    queryKey: ["bookings", bookingId],
     queryFn: () => getBooking(bookingId),
     // just for fun, retry 3 times by default
     retry: true,

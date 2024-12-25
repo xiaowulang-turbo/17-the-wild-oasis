@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const StyledCheckbox = styled.div`
   display: flex;
@@ -24,6 +25,14 @@ const StyledCheckbox = styled.div`
     gap: 0.8rem;
   }
 `;
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 
 function Checkbox({ checked, onChange, disabled = false, id, children }) {
   return (
