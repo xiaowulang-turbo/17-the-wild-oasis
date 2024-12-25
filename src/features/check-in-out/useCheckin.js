@@ -10,8 +10,13 @@ export function useCheckin() {
 
   // mutate && isLoading, we cannot say mutation
   const { mutate: checkin, isLoading: isCheckingIn } = useMutation({
-    mutationFn: (bookingId) =>
-      updateBooking(bookingId, { status: "checked-in", isPaid: true }),
+    // This mutationFn can only receive one argument
+    mutationFn: ({ bookingId, breakfast }) =>
+      updateBooking(bookingId, {
+        status: "checked-in",
+        isPaid: true,
+        ...breakfast,
+      }),
 
     onSuccess: (data) => {
       toast.success(`Booking ${data.id} successfully checked in `);
