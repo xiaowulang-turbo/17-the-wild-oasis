@@ -6,28 +6,36 @@ import styled from "styled-components";
 import { useEffect } from "react";
 
 const FullPage = styled.div`
+  height: 100vh;
   background-color: var(--color-grey-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   // 1. Load the authenticated user
-  const { user, isLoading } = useUser();
+  const { isLoading, isAuthenticated } = useUser();
 
   // 2. If there is no authenticated user, redirect to login page
   useEffect(() => {
-    if (!user && !isLoading) {
+    if (!isLoading && !isAuthenticated) {
       navigate("/login");
     }
-  }, [user, isLoading, navigate]);
+  }, [isLoading, isAuthenticated, navigate]);
 
   // 3. While loading, show a loading spinner
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <FullPage>
+        <Spinner />
+      </FullPage>
+    );
   }
 
   // 4. If there is an authenticated user, render the app
-  if (user) {
-    return <FullPage>{children}</FullPage>;
+  if (isAuthenticated) {
+    return children;
   }
 }

@@ -17,7 +17,15 @@ function LoginForm() {
 
     console.log(`Logging in with ${email} and ${password}`);
 
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (
