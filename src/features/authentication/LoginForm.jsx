@@ -3,12 +3,22 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import Input from "../../ui/Input";
 import FormRowVertical from "../../ui/FormRowVertical";
+import useLogin from "./useLogin";
+import SpinnerMini from "../../ui/SpinnerMini";
 
 function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("jonas@example.com");
+  const [password, setPassword] = useState("example0987");
+  const { login, isLoading: isLoggingIn } = useLogin();
 
-  function handleSubmit() {}
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!email || !password) return;
+
+    console.log(`Logging in with ${email} and ${password}`);
+
+    login({ email, password });
+  }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -17,6 +27,7 @@ function LoginForm() {
           type="email"
           id="email"
           // This makes this form better for password managers
+          disabled={isLoggingIn}
           autoComplete="username"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -26,13 +37,16 @@ function LoginForm() {
         <Input
           type="password"
           id="password"
+          disabled={isLoggingIn}
           autoComplete="current-password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormRowVertical>
       <FormRowVertical>
-        <Button size="large">Login</Button>
+        <Button size="large" disabled={isLoggingIn}>
+          {isLoggingIn ? <SpinnerMini /> : "Login"}
+        </Button>
       </FormRowVertical>
     </Form>
   );
