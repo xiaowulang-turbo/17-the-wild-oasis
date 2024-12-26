@@ -24,6 +24,10 @@ react-query date-fns@2.30.0 react-hook-form@7
 
 - New Goal: 10 commits every day
 
+# Bugs
+
+- 登录页面的 Form 的样式异常，尚未解决
+
 # learning
 
 - 中文图片发送时报错，尚未解决（supabase-bug）
