@@ -27,6 +27,7 @@ react-query date-fns@2.30.0 react-hook-form@7
 # Bugs
 
 - 登录页面的 Form 的样式异常，尚未解决
+- 登录时，导航守卫组件尚未验证用户身份，导致无法正常跳转
 
 # learning
 
