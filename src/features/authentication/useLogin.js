@@ -11,8 +11,9 @@ export default function useLogin() {
     mutationFn: ({ email, password }) => loginApi({ email, password }),
 
     onSuccess: (user) => {
+      // user is an object which contains the user data and session token
       toast.success("Login successful");
-      queryClient.setQueriesData(["user"], user);
+      queryClient.setQueryData(["user"], user?.user);
       navigate("/dashboard", { replace: true });
     },
 

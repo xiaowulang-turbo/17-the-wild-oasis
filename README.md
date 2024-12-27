@@ -27,7 +27,7 @@ react-query date-fns@2.30.0 react-hook-form@7
 # Bugs
 
 - 登录页面的 Form 的样式异常，尚未解决
-- 登录时，导航守卫组件尚未验证用户身份，导致无法正常跳转
+- 登录时，导航守卫组件尚未验证用户身份，导致无法正常跳转(初步定位原因如下：用户注销后，react-query 的缓存数据未清除，其中的 user 信息变为失效状态，isAuthenticated 函数返回 false，导致无法正常跳转)
 
 # learning
 
