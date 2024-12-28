@@ -4,7 +4,7 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-import { useUpdateUser } from "./useUpdateUser";
+import useUpdateUser from "./useUpdateUser";
 
 function UpdatePasswordForm() {
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -31,7 +31,7 @@ function UpdatePasswordForm() {
             required: "This field is required",
             minLength: {
               value: 8,
-              message: "Password needs a minimum of 8 characters",
+              message: "New password needs a minimum of 8 characters",
             },
           })}
         />
@@ -53,6 +53,7 @@ function UpdatePasswordForm() {
           })}
         />
       </FormRow>
+
       <FormRow>
         <Button onClick={reset} type="reset" variation="secondary">
           Cancel
