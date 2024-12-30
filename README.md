@@ -28,6 +28,7 @@ react-query date-fns@2.30.0 react-hook-form@7
 
 - 登录页面的 Form 的样式异常，尚未解决
 - 登录时，导航守卫组件尚未验证用户身份，导致无法正常跳转(初步定位原因如下：用户注销后，react-query 的缓存数据未清除，其中的 user 信息变为失效状态，isAuthenticated 函数返回 false，导致无法正常跳转)
+- errorBoundary 页面的 box 卡片样式和 Button 样式无法应用，暂不明确原因
 
 # learning
 
@@ -55,3 +56,4 @@ react-query date-fns@2.30.0 react-hook-form@7
   然不能显示
 - 今后应当更加注重上一个问题，多关注嵌套组件的层级关系，避免意外的组件卸载
 - 组件内的值不能为一个对象（两个括号部分内）
+- 菜单和 modal 类型的点击判断逻辑比较复杂，需要用到捕获阶段、阻止冒泡等技巧，应多加练习
