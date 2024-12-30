@@ -9,12 +9,12 @@ import Pagination from "../../ui/Pagination";
 function BookingTable() {
   const { isLoading, bookings, count } = useBookings();
 
-  // if (!bookings) return <Empty resource={"bookings"} />;
+  if (isLoading) return <Spinner />;
+
+  if (!bookings) return <Empty resource={"bookings"} />;
 
   // Test for error boundary
-  if (!bookings.length) return <Empty resource={"bookings"} />;
-
-  if (isLoading) return <Spinner />;
+  //if (!bookings.length) return <Empty resource={"bookings"} />;
 
   return (
     <Menus>
