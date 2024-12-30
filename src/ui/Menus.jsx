@@ -89,6 +89,7 @@ function Toggle({ id }) {
   const { open, close, openId, setPosition } = useContext(MenusContext);
 
   const handleClick = (e) => {
+    e.stopPropagation();
     const rect = e.target.closest("button").getBoundingClientRect();
 
     setPosition({
@@ -109,7 +110,7 @@ function Toggle({ id }) {
 
 function List({ id, children }) {
   const { openId, close, position } = useContext(MenusContext);
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close, false);
 
   if (id !== openId) return null;
   return createPortal(
